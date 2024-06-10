@@ -1,3 +1,3 @@
 # Adamo
 
-A mobile robot
+A mobile robot, made with ROS and Gazebo
