@@ -35,7 +35,7 @@
 
         <sensor name="lidar" type="ray">
             <pose>0 0 0 0 0 0</pose> <!-- origin of virtual sensor relative to link -->
-            <visualize>true</visualize>
+            <visualize>false</visualize>
             <update_rate>10</update_rate>
             <ray>
                 <!-- horizontal scan parameters -->
