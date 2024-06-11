@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+    <!-- The inertial box will be initialized on the visual box -->
     <xacro:include filename="inertial_macros.xacro"/>
 
     <material name="white">
@@ -27,7 +28,7 @@
 
 
     <!-- Chassis -->
-    <!-- origin is in the back, behind the 2 wheels -->
+    <!-- origin is in the back, behind the 2 wheels (hence -0.1 in the x axis) -->
     <joint name="chassis_joint" type="fixed">
         <parent link="base_link"/>
         <child link="chassis"/>
@@ -36,6 +37,7 @@
 
     <link name="chassis">
         <visual>
+            <!-- since the box will be initialized at the center of the joint, we need to move it (a bit left and a bit up) -->
             <origin xyz="0.15 0 0.075"/>
             <geometry>
                 <box size="0.3 0.3 0.15"/>
@@ -61,7 +63,11 @@
     <joint name="left_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="left_wheel"/>
+
+        <!-- turn the cylinder to the side by -90 deg -->
         <origin xyz="0 0.175 0" rpy="-${pi/2} 0 0"/>
+
+        <!-- make it rotate on the positive z axis (meaning increasing the joint state will move the cylinder counter clockwise on the positive z axis) -->
         <axis xyz="0 0 1"/>
     </joint>
 
@@ -90,7 +96,11 @@
     <joint name="right_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="right_wheel"/>
+
+        <!-- turn the cylinder to the side by 90 deg -->
         <origin xyz="0 -0.175 0" rpy="${pi/2} 0 0"/>
+
+        <!-- make it rotate on the negative z axis (meaning increasing the joint state will move the cylinder counter clockwise on the negative z axis) -->
         <axis xyz="0 0 -1"/>
     </joint>
 
