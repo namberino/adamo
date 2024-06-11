@@ -20,6 +20,10 @@
         <color rgba="0 0 0 1"/>
     </material>
 
+    <material name="red">
+        <color rgba="1 0 0 1"/>
+    </material>
+
 
     <!-- sits on the center of the 2 wheels as that is the center of rotation -->
     <link name="base_link">
