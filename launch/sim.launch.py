@@ -18,19 +18,36 @@ def generate_launch_description():
     # include the gazebo launch file (in the gazebo_ros package)
     gazebo = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
-                    get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py')]),
-             )
+                    get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py'
+                    )
+                ]),
+    )
 
     # run spawner node from the gazebo_ros package
     # the entity name doesn't really matter if there's only have a single robot
     spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
                         arguments=['-topic', 'robot_description',
                                    '-entity', 'bot'],
-                        output='screen')
+                        output='screen'
+    )
+    
+    diff_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["diff_controller"],
+    )
+
+    joint_broadcaster_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["joint_broadcaster"],
+    )
 
     # launch simulation
     return LaunchDescription([
         rsp,
         gazebo,
         spawn_entity,
+        diff_controller_spawner,
+        joint_broadcaster_spawner
     ])
