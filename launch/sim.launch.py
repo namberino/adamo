@@ -8,6 +8,7 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     package_name='adamo'
+    gz_params_file = os.path.join(get_package_share_directory(package_name),'config','gz_params.yaml')
 
     rsp = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
@@ -19,8 +20,8 @@ def generate_launch_description():
     gazebo = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
                     get_package_share_directory('gazebo_ros'), 'launch', 'gazebo.launch.py'
-                    )
-                ]),
+                )]),
+                launch_arguments={'extra_gazebo_args': '--ros-args --params-file ' + gz_params_file}.items()
     )
 
     # run spawner node from the gazebo_ros package
