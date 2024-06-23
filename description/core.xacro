@@ -30,6 +30,17 @@
 
     </link>
 
+    <!-- Base footprint -->
+     <joint name="base_footprint_link" type="fixed">
+        <parent link="base_link"/>
+        <child link="base_footprint"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+     </joint>
+
+     <link name="base_footprint">
+        
+     </link>
+
 
     <!-- Chassis -->
     <!-- origin is in the back, behind the 2 wheels (hence -0.1 in the x axis) -->
